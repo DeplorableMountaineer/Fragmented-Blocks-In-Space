@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    [SerializeField] private float X_Min;
-
-    [SerializeField] private float X_Max;
+    [SerializeField] private float X_Min = 1.3f;
+    [SerializeField] private float X_Max = 14.7f;
 
     // Start is called before the first frame update
     void Start() {

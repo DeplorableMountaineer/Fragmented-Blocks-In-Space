@@ -5,7 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class LoseCollider : MonoBehaviour
 {
-    [SerializeField] SceneLoader sceneLoader;
+    [SerializeField] SceneLoader sceneLoader = null;
+
+    void Start()
+    {
+        if (sceneLoader == null)
+        {
+            foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>())
+            {
+                sceneLoader = go.GetComponent<SceneLoader>();
+                if (sceneLoader != null)
+                {
+                    break;
+                }
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Ball") {
             Destroy(collision.gameObject);

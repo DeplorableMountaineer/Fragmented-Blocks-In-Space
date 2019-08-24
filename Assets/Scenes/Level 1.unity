@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 139688694}
   - component: {fileID: 139688697}
   - component: {fileID: 139688696}
+  - component: {fileID: 139688698}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -196,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139688693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.16, y: 9.44, z: 0}
+  m_LocalPosition: {x: 9.64, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -239,6 +240,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &139688698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139688693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5848bffc06b512845a4a5f7cfb968b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddle: {fileID: 847529398}
+  launchSpeed: {x: 2, y: 15}
 --- !u!1 &578093162
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +851,7 @@ GameObject:
   - component: {fileID: 1984204634}
   - component: {fileID: 1984204633}
   m_Layer: 0
-  m_Name: T_Metal_Glassbrick_Notile
+  m_Name: Backgound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
