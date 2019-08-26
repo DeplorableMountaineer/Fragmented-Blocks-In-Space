@@ -7,15 +7,11 @@ public class LoseCollider : MonoBehaviour
 {
     [SerializeField] SceneLoader sceneLoader = null;
 
-    void Start()
-    {
-        if (sceneLoader == null)
-        {
-            foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>())
-            {
+    void Start() {
+        if (sceneLoader == null) {
+            foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>()) {
                 sceneLoader = go.GetComponent<SceneLoader>();
-                if (sceneLoader != null)
-                {
+                if (sceneLoader != null) {
                     break;
                 }
             }
@@ -23,14 +19,13 @@ public class LoseCollider : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Ball") {
-            Destroy(collision.gameObject);
             GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-             
-            if (balls.Length < 1 || (balls.Length==1 && balls[0] == collision.gameObject))
-            {
+
+            if (balls.Length < 1 || (balls.Length == 1 && balls[0] == collision.gameObject)) {
                 sceneLoader.GameOver();
             }
         }
+        Destroy(collision.gameObject);
     }
 
 }
