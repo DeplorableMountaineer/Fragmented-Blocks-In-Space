@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8055564349438985641}
   - component: {fileID: 8055564349438985646}
   m_Layer: 0
-  m_Name: Block
+  m_Name: Red Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3028682e95c534c8961d3f0995c97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 979bc9a0e3e68644d9f667ec069e85e4, type: 3}
 --- !u!50 &8055564349438985646
 Rigidbody2D:
   serializedVersion: 4

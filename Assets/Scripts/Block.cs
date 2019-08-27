@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    [SerializeField] AudioClip clip;
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Ball")
-        {
+        if (collision.gameObject.tag == "Ball") {
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            sr.color = new Color(sr.color.r, sr.color.g,sr.color.b, 0.1f);
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.1f);
             GetComponent<BoxCollider2D>().isTrigger = true;
+            AudioSource.PlayClipAtPoint(clip, transform.position, 0.5f);
         }
     }
 }
