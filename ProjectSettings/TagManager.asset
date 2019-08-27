@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ball
   - Paddle
+  - Breakable Block
+  - Unbreakable Block
+  - Level
   layers:
   - Default
   - TransparentFX

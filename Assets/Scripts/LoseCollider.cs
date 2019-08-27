@@ -27,6 +27,5 @@ public class LoseCollider : MonoBehaviour
         }
         Destroy(collision.gameObject);
     }
-
 }
 
