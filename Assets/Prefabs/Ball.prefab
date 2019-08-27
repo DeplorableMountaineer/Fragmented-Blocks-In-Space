@@ -134,3 +134,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paddle: {fileID: 0}
   launchSpeed: {x: 2, y: 15}
+  preferredVelocity: 10
+  randomBounce: 0.5
+  velocityCorrectAmount: 0.5

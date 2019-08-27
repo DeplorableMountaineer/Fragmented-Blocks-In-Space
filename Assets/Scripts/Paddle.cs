@@ -18,4 +18,6 @@ public class Paddle : MonoBehaviour
         Vector2 pos = new Vector2(Mathf.Clamp(x, X_Min, X_Max), transform.position.y);
         transform.position = pos;
     }
+
+   
 }
