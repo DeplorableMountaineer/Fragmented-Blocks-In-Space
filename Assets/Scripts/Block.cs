@@ -24,8 +24,8 @@ public class Block : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if (!sceneLoader.gameOver) {
-            if (level.BreakBlock() <= 0) {
+        if (sceneLoader && level) {
+            if (!sceneLoader.gameOver && level.BreakBlock() <= 0) {
                 sceneLoader.LoadNextScene();
             }
         }

@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public bool gameOver = false;
+    [SerializeField] GameStatus gameStatus = null;
+
+    void Start() {
+        if (gameStatus == null) {
+            gameStatus = FindObjectOfType<GameStatus>();
+        }
+    }
 
     public void LoadNextScene() {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -19,6 +26,8 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadStartScene() {
         gameOver = false;
+        gameStatus.score = 0;
+        gameStatus.NewLevel();
         SceneManager.LoadScene(0);
     }
 

@@ -55,7 +55,7 @@ public class Ball : MonoBehaviour
             rb.AddForce(
                 v.normalized * (preferredVelocity - m) * velocityCorrectAmount + Random.insideUnitCircle * randomBounce,
                 ForceMode2D.Impulse);
-            if (isBallInPlay) {
+            if (isBallInPlay && audioSource.isActiveAndEnabled) {
                 audioSource.PlayOneShot(audioSource.clip);
             }
         }

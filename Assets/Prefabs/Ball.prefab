@@ -136,7 +136,7 @@ MonoBehaviour:
   paddle: {fileID: 0}
   launchSpeed: {x: 2, y: 15}
   preferredVelocity: 10
-  randomBounce: 0.5
+  randomBounce: 1
   velocityCorrectAmount: 0.5
 --- !u!82 &1121810232635745629
 AudioSource:
