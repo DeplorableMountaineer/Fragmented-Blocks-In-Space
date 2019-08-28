@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 8055564349438985637, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
         type: 3}
       propertyPath: m_Name
-      value: Block
+      value: Green Block
       objectReference: {fileID: 0}
     - target: {fileID: 8055564349438985643, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
         type: 3}
@@ -66,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8055564349438985641, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
+        type: 3}
+      propertyPath: pointValue
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8055564349438985642, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
         type: 3}

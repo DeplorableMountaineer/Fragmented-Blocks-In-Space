@@ -123,6 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 979bc9a0e3e68644d9f667ec069e85e4, type: 3}
   volume: 0.3
+  level: {fileID: 0}
+  sceneLoader: {fileID: 0}
+  gameStatus: {fileID: 0}
+  pointValue: 100
 --- !u!50 &8055564349438985646
 Rigidbody2D:
   serializedVersion: 4

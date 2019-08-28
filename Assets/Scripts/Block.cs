@@ -8,6 +8,8 @@ public class Block : MonoBehaviour
     [SerializeField] float volume = .3f;
     [SerializeField] Level level = null;
     [SerializeField] SceneLoader sceneLoader = null;
+    [SerializeField] GameStatus gameStatus = null;
+    [SerializeField] private float pointValue = 1f;
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ball") {
@@ -16,6 +18,7 @@ public class Block : MonoBehaviour
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.1f);
             GetComponent<BoxCollider2D>().isTrigger = true;
             AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, volume);
+            gameStatus.AddScore(pointValue);
         }
 
     }
@@ -34,6 +37,9 @@ public class Block : MonoBehaviour
         }
         if (sceneLoader == null) {
             sceneLoader = FindObjectOfType<SceneLoader>();
+        }
+        if (gameStatus == null) {
+            gameStatus = FindObjectOfType<GameStatus>();
         }
         level.AddBlock();
     }
