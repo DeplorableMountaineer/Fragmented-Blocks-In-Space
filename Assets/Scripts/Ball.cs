@@ -14,7 +14,7 @@ public class Ball : MonoBehaviour
     private Vector2 paddleToBallVector;
     private Rigidbody2D rb;
     private bool isBallInPlay = false;
-    private AudioSource audio;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,7 +23,7 @@ public class Ball : MonoBehaviour
         }
         paddleToBallVector = transform.position - paddle.transform.position;
         rb = GetComponent<Rigidbody2D>();
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,15 +48,14 @@ public class Ball : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (isBallInPlay)
-        {
+        if (isBallInPlay) {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             Vector2 v = rb.velocity;
             float m = v.magnitude;
             rb.AddForce(
                 v.normalized * (preferredVelocity - m) * velocityCorrectAmount + Random.insideUnitCircle * randomBounce,
                 ForceMode2D.Impulse);
-            audio.PlayOneShot(audio.clip);
+            audioSource.PlayOneShot(audioSource.clip);
         }
     }
 }

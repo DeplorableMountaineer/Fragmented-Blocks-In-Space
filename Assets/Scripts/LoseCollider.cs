@@ -9,12 +9,8 @@ public class LoseCollider : MonoBehaviour
 
     void Start() {
         if (sceneLoader == null) {
-            foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>()) {
-                sceneLoader = go.GetComponent<SceneLoader>();
-                if (sceneLoader != null) {
-                    break;
-                }
-            }
+            sceneLoader = FindObjectOfType<SceneLoader>();
+            //TODO create if nonexistent
         }
     }
     private void OnTriggerEnter2D(Collider2D collision) {

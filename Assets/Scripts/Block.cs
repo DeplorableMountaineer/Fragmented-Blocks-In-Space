@@ -6,7 +6,7 @@ public class Block : MonoBehaviour
 {
     [SerializeField] AudioClip clip;
     [SerializeField] float volume = .3f;
-    [SerializeField] GameObject level = null;
+    [SerializeField] Level level = null;
     [SerializeField] SceneLoader sceneLoader = null;
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -21,24 +21,21 @@ public class Block : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if (level.GetComponent<Level>().BreakBlock() <= 0) {
-            sceneLoader.LoadNextScene();
+        if (!sceneLoader.gameOver) {
+            if (level.BreakBlock() <= 0) {
+                sceneLoader.LoadNextScene();
+            }
         }
     }
 
     void Start() {
         if (level == null) {
-            level = GameObject.FindGameObjectsWithTag("Level")[0];
+            level = FindObjectOfType<Level>();
         }
         if (sceneLoader == null) {
-            foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>()) {
-                sceneLoader = go.GetComponent<SceneLoader>();
-                if (sceneLoader != null) {
-                    break;
-                }
-            }
+            sceneLoader = FindObjectOfType<SceneLoader>();
         }
-        level.GetComponent<Level>().AddBlock();
+        level.AddBlock();
     }
 
 }
