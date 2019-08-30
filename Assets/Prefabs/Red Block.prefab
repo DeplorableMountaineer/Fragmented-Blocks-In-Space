@@ -127,6 +127,7 @@ MonoBehaviour:
   sceneLoader: {fileID: 0}
   gameStatus: {fileID: 0}
   pointValue: 100
+  hitEffect: {fileID: 100000, guid: 921a3ff88856fe04ebc86b196fd8cc59, type: 3}
 --- !u!50 &8055564349438985646
 Rigidbody2D:
   serializedVersion: 4
