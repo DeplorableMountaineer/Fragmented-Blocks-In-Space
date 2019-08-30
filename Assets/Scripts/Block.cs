@@ -11,12 +11,16 @@ public class Block : MonoBehaviour
     [SerializeField] SceneLoader sceneLoader = null;
     [SerializeField] GameStatus gameStatus = null;
     [SerializeField] private float pointValue = 1f;
-
     [SerializeField] private GameObject hitEffect;
+
+    private string breakableBlockTag = "Breakable Block";
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ball") {
             PlayHitEffect();
-            DestroyBlock();
+            if (gameObject.tag == breakableBlockTag) {
+                PlayDamageEffect();
+                DestroyBlock();
+            }
         }
 
     }
@@ -39,7 +43,10 @@ public class Block : MonoBehaviour
         if (gameStatus == null) {
             gameStatus = FindObjectOfType<GameStatus>();
         }
-        level.AddBlock();
+
+        if (gameObject.tag == breakableBlockTag) {
+            level.AddBlock();
+        }
     }
 
     void DestroyBlock() {
@@ -50,15 +57,20 @@ public class Block : MonoBehaviour
         gameStatus.AddScore(pointValue);
     }
 
-    void PlayHitEffect() {
+    void PlayDamageEffect() {
         GameObject smoke = Object.Instantiate(hitEffect, transform.position, transform.rotation);
         ParticleSystem ps = smoke.GetComponent<ParticleSystem>();
         Gradient gr = new Gradient();
         ColorOverLifetimeModule col = ps.colorOverLifetime;
         col.enabled = true;
         Color c = GetComponent<SpriteRenderer>().color;
-        gr.SetKeys(new GradientColorKey[] { new GradientColorKey(c, 0.0f), new GradientColorKey(c, 0.1f), new GradientColorKey(c, 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(0.1f, 0.2f), new GradientAlphaKey(0.0f, 1.0f) });
+        gr.SetKeys(new GradientColorKey[] { new GradientColorKey(c, 0.0f), new GradientColorKey(c, 0.1f),
+            new GradientColorKey(c, 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f),
+            new GradientAlphaKey(0.1f, 0.2f), new GradientAlphaKey(0.0f, 1.0f) });
         col.color = gr;
+    }
+
+    void PlayHitEffect() {
         AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, volume);
     }
 }
