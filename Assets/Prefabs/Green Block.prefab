@@ -47,11 +47,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8055564349438985641, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
-        type: 3}
-      propertyPath: pointValue
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 8055564349438985642, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
         type: 3}
       propertyPath: m_Color.r
@@ -61,6 +56,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.g
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8055564349438985641, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
+        type: 3}
+      propertyPath: pointValue
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8055564349438985641, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd,
+        type: 3}
+      propertyPath: startingHealth
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66783c1c696f1ea4f8a9c9d1f3184ecd, type: 3}

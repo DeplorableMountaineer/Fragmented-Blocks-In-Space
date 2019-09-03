@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2631102479969649265, guid: 1299b835207c3ac40954a32646b83bc6,
         type: 3}
       propertyPath: m_Name
-      value: Block (40)
+      value: Unbreakable Block
       objectReference: {fileID: 0}
     - target: {fileID: 2631102479969649265, guid: 1299b835207c3ac40954a32646b83bc6,
         type: 3}
@@ -91,6 +91,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2631102479969649277, guid: 1299b835207c3ac40954a32646b83bc6,
+        type: 3}
+      propertyPath: hitSprites.Array.size
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1299b835207c3ac40954a32646b83bc6, type: 3}

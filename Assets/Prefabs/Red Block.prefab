@@ -128,6 +128,10 @@ MonoBehaviour:
   gameStatus: {fileID: 0}
   pointValue: 100
   hitEffect: {fileID: 100000, guid: 921a3ff88856fe04ebc86b196fd8cc59, type: 3}
+  startingHealth: 50
+  hitSprites:
+  - {fileID: 21300000, guid: ce50a3bb23108d54b92941a1ce08af54, type: 3}
+  - {fileID: 21300000, guid: b49ab9b41d38dbb4abf8e97f52e4cdb7, type: 3}
 --- !u!50 &8055564349438985646
 Rigidbody2D:
   serializedVersion: 4

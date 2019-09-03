@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
@@ -9,11 +7,11 @@ public class Ball : MonoBehaviour
     [SerializeField] float preferredVelocity = 10f;
     [SerializeField] float randomBounce = 0.5f;
     [SerializeField] float velocityCorrectAmount = 0.5f;
-
+    [SerializeField] public float damage = 25f;
 
     private Vector2 paddleToBallVector;
     private Rigidbody2D rb;
-    private bool isBallInPlay = false;
+    public bool isBallInPlay = false;
     private AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -52,10 +50,12 @@ public class Ball : MonoBehaviour
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             Vector2 v = rb.velocity;
             float m = v.magnitude;
-            rb.AddForce(
-                v.normalized * (preferredVelocity - m) * velocityCorrectAmount + Random.insideUnitCircle * randomBounce,
-                ForceMode2D.Impulse);
-            if (isBallInPlay && audioSource.isActiveAndEnabled) {
+            Vector2 force = v.normalized * (preferredVelocity - m) * velocityCorrectAmount + Random.insideUnitCircle * randomBounce;
+            if (Mathf.Abs(v.x * v.y) <= .25f) {
+                force += randomBounce * Random.Range(0f, 1f) * new Vector2(v.y, -v.x);
+            }
+            rb.AddForce(force, ForceMode2D.Impulse);
+            if (audioSource.isActiveAndEnabled) {
                 audioSource.PlayOneShot(audioSource.clip);
             }
         }

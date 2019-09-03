@@ -9,6 +9,8 @@ public class GameStatus : MonoBehaviour
     private TextMeshProUGUI scoreText;
 
     public float score = 0f;
+    [SerializeField] public ControlType controlType = ControlType.Mouse;
+
 
     void Awake() {
         int gameStatusCount = FindObjectsOfType<GameStatus>().Length;

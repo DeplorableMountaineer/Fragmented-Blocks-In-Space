@@ -12,14 +12,24 @@ public class Block : MonoBehaviour
     [SerializeField] GameStatus gameStatus = null;
     [SerializeField] private float pointValue = 1f;
     [SerializeField] private GameObject hitEffect;
-
+    [SerializeField] private float startingHealth = 25f;
+    [SerializeField] private Sprite[] hitSprites;
+    private float health;
     private string breakableBlockTag = "Breakable Block";
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ball") {
             PlayHitEffect();
             if (gameObject.tag == breakableBlockTag) {
                 PlayDamageEffect();
-                DestroyBlock();
+                health -= collision.gameObject.GetComponent<Ball>().damage;
+                if (health <= 0) {
+                    DestroyBlock();
+                } else {
+                    int hit = Mathf.FloorToInt(health / (startingHealth / (1f + hitSprites.Length)));
+                    if (hit < hitSprites.Length) {
+                        gameObject.GetComponent<SpriteRenderer>().sprite = hitSprites[hitSprites.Length - hit - 1];
+                    }
+                }
             }
         }
 
@@ -34,6 +44,7 @@ public class Block : MonoBehaviour
     }
 
     void Start() {
+        health = startingHealth;
         if (level == null) {
             level = FindObjectOfType<Level>();
         }
