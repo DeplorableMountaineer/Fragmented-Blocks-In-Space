@@ -13,6 +13,7 @@ public class Ball : MonoBehaviour
     private Rigidbody2D rb;
     public bool isBallInPlay = false;
     private AudioSource audioSource;
+    private float direction = 1f;
 
     // Start is called before the first frame update
     void Start() {
@@ -40,9 +41,13 @@ public class Ball : MonoBehaviour
 
     private void LaunchBallOnMouseClick() {
         if (Input.GetMouseButtonDown(0)) {
-            isBallInPlay = true;
-            rb.AddForce(launchSpeed, ForceMode2D.Impulse);
+            LaunchBall();
         }
+    }
+
+    public void LaunchBall() {
+        isBallInPlay = true;
+        rb.AddForce(launchSpeed, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -50,9 +55,10 @@ public class Ball : MonoBehaviour
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             Vector2 v = rb.velocity;
             float m = v.magnitude;
-            Vector2 force = v.normalized * (preferredVelocity - m) * velocityCorrectAmount + Random.insideUnitCircle * randomBounce;
-            if (Mathf.Abs(v.x * v.y) <= .25f) {
-                force += randomBounce * Random.Range(0f, 1f) * new Vector2(v.y, -v.x);
+            Vector2 b = Random.insideUnitCircle;
+            Vector2 force = v.normalized * (preferredVelocity - m) * velocityCorrectAmount + new Vector2(Mathf.Abs(b.x) * direction, Mathf.Abs(b.y)) * Random.Range(0f, preferredVelocity * randomBounce);
+            if (Random.Range(0f, 100f) < 10f) {
+                direction = -direction;
             }
             rb.AddForce(force, ForceMode2D.Impulse);
             if (audioSource.isActiveAndEnabled) {

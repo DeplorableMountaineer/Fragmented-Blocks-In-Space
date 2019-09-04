@@ -1,12 +1,5 @@
 ﻿using UnityEngine;
 
-public enum ControlType
-{
-    Mouse,
-    Keyboard,
-    Autoplay
-}
-
 public class Paddle : MonoBehaviour
 {
     [SerializeField] private float X_Min = 1.3f;
@@ -16,7 +9,14 @@ public class Paddle : MonoBehaviour
     private Ball ball;
     void Start() {
         ball = FindObjectOfType<Ball>();
-        controlType = FindObjectOfType<GameStatus>().controlType;
+        controlType = GameInstance.GetInstance().GetControlType();
+        if (controlType == ControlType.Autoplay) {
+            Invoke("AutoLaunch", 1f);
+        }
+    }
+
+    void AutoLaunch() {
+        ball.LaunchBall();
     }
 
     // Update is called once per frame

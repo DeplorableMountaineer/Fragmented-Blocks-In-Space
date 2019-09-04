@@ -7,15 +7,15 @@ public class Block : MonoBehaviour
 {
     [SerializeField] AudioClip clip;
     [SerializeField] float volume = .3f;
-    [SerializeField] Level level = null;
-    [SerializeField] SceneLoader sceneLoader = null;
-    [SerializeField] GameStatus gameStatus = null;
     [SerializeField] private float pointValue = 1f;
     [SerializeField] private GameObject hitEffect;
     [SerializeField] private float startingHealth = 25f;
     [SerializeField] private Sprite[] hitSprites;
     private float health;
     private string breakableBlockTag = "Breakable Block";
+    private LevelInstance levelInstance = null;
+    private GameInstance gameInstance = null;
+
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ball") {
             PlayHitEffect();
@@ -32,31 +32,20 @@ public class Block : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void OnDestroy() {
-        if (sceneLoader && level) {
-            if (!sceneLoader.gameOver && level.BreakBlock() <= 0) {
-                sceneLoader.LoadNextScene();
-            }
+        if (gameInstance && levelInstance && !gameInstance.IsGameOver() && levelInstance.BreakBlock() <= 0) {
+            gameInstance.LoadNextScene();
         }
     }
 
     void Start() {
         health = startingHealth;
-        if (level == null) {
-            level = FindObjectOfType<Level>();
-        }
-        if (sceneLoader == null) {
-            sceneLoader = FindObjectOfType<SceneLoader>();
-        }
-        if (gameStatus == null) {
-            gameStatus = FindObjectOfType<GameStatus>();
-        }
-
+        levelInstance = LevelInstance.GetInstance();
+        gameInstance = GameInstance.GetInstance();
         if (gameObject.tag == breakableBlockTag) {
-            level.AddBlock();
+            LevelInstance.GetInstance().AddBlock();
         }
     }
 
@@ -65,7 +54,7 @@ public class Block : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.1f);
         GetComponent<BoxCollider2D>().isTrigger = true;
-        gameStatus.AddScore(pointValue);
+        LevelInstance.GetInstance().AddScore(pointValue);
     }
 
     void PlayDamageEffect() {
