@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 
 public class InitGame : MonoBehaviour
@@ -15,6 +17,11 @@ public class InitGame : MonoBehaviour
 
 
     void Awake() {
+        if (levelType == LevelType.StartScreen) {
+            GameInstance.GetInstance().SetControlType(controlType);
+        } else {
+            controlType = GameInstance.GetInstance().GetControlType();
+        }
         GameInstance.GetInstance(gameInstancePrefab);
         if (levelType == LevelType.Playable) {
             LevelInstance.GetInstance(levelInstancePrefab);
@@ -28,9 +35,28 @@ public class InitGame : MonoBehaviour
             }
         } else if (levelType == LevelType.StartScreen) {
             GameInstance.GetInstance().ResetGame();
-            GameInstance.GetInstance().SetControlType(controlType);
             GameInstance.GetInstance().SetGameSpeed(gameSpeed);
+            if (controlType == ControlType.Autoplay) {
+                Invoke("StartRandomLevel", 1f);
+            }
+        } else if (levelType == LevelType.GameOver) {
+            if (controlType == ControlType.Autoplay) {
+                Invoke("RestartGame", 1f);
+            }
         }
+
+        if (controlType == ControlType.Autoplay) {
+            AudioListener.volume = 0;
+            GameInstance.GetInstance().SetScore(0);
+        }
+    }
+
+    void StartRandomLevel() {
+        SceneManager.LoadScene(Random.Range(1, SceneManager.sceneCountInBuildSettings - 1));
+    }
+
+    void RestartGame() {
+        SceneManager.LoadScene(0);
     }
 }
 

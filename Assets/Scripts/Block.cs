@@ -25,7 +25,7 @@ public class Block : MonoBehaviour
                 if (health <= 0) {
                     DestroyBlock();
                 } else {
-                    int hit = Mathf.FloorToInt(health / (startingHealth / (1f + hitSprites.Length)));
+                    int hit = Mathf.RoundToInt(health / (startingHealth / (1f + hitSprites.Length)));
                     if (hit < hitSprites.Length) {
                         gameObject.GetComponent<SpriteRenderer>().sprite = hitSprites[hitSprites.Length - hit - 1];
                     }
@@ -35,7 +35,9 @@ public class Block : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if (gameInstance && levelInstance && !gameInstance.IsGameOver() && levelInstance.BreakBlock() <= 0) {
+        if (gameInstance && levelInstance && !gameInstance.IsGameOver() && levelInstance.BreakBlock() <= 0 && !levelInstance.IsGameWon()) {
+            levelInstance.SetGameWon();
+            LevelInstance.GetInstance().SaveStats(true);
             gameInstance.LoadNextScene();
         }
     }

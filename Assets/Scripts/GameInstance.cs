@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ public class GameInstance : MonoBehaviour
 
     private float score = 0f;
     private bool gameOver = false;
+
     private static GameInstance singleton = null;
 
     public static GameInstance GetInstance(GameObject prefab = null) {
@@ -41,11 +43,7 @@ public class GameInstance : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         Time.timeScale = gameSpeed;
-    }
-
-    // Update is called once per frame
-    void Update() {
-
+        Statistics.GetInstance();
     }
 
     public void ResetGame() {
@@ -95,6 +93,7 @@ public class GameInstance : MonoBehaviour
     }
 
     public void GameOver() {
+        LevelInstance.GetInstance().SaveStats(false);
         gameOver = true;
         SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
     }
@@ -102,7 +101,6 @@ public class GameInstance : MonoBehaviour
     public bool IsGameOver() {
         return gameOver;
     }
-
 }
 
 public enum ControlType

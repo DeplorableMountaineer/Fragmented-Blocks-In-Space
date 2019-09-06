@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8055564349438985641}
   - component: {fileID: 8055564349438985646}
   m_Layer: 0
-  m_Name: Red Block
+  m_Name: Orange Block
   m_TagString: Breakable Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 87a282795b64cf143b84aebb1c96b6ff, type: 3}
-  m_Color: {r: 1, g: 0.13152848, b: 0, a: 0.5019608}
+  m_Color: {r: 1, g: 0.5515284, b: 0, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
