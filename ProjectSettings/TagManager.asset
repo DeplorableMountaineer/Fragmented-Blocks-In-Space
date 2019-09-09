@@ -9,6 +9,7 @@ TagManager:
   - Breakable Block
   - Unbreakable Block
   - Level
+  - Dead
   layers:
   - Default
   - TransparentFX

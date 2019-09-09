@@ -8,6 +8,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float randomBounce = 0.5f;
     [SerializeField] float velocityCorrectAmount = 0.5f;
     [SerializeField] public float damage = 25f;
+    [SerializeField] public bool isBallTrapped = false;
 
     private Vector2 paddleToBallVector;
     private Rigidbody2D rb;
@@ -47,11 +48,14 @@ public class Ball : MonoBehaviour
 
     public void LaunchBall() {
         isBallInPlay = true;
+        if (Random.Range(0.0f, 9.0f) < 5.0f) {
+            launchSpeed *= new Vector2(-1f, 1f);
+        }
         rb.AddForce(launchSpeed, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (isBallInPlay) {
+        if (isBallInPlay && !isBallTrapped) {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             Vector2 v = rb.velocity;
             float m = v.magnitude;

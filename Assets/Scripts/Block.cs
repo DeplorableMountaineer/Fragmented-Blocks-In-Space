@@ -11,13 +11,18 @@ public class Block : MonoBehaviour
     [SerializeField] private GameObject hitEffect;
     [SerializeField] private float startingHealth = 25f;
     [SerializeField] private Sprite[] hitSprites;
+    [SerializeField] private GameObject ballPrefab = null;
     private float health;
     private string breakableBlockTag = "Breakable Block";
     private LevelInstance levelInstance = null;
     private GameInstance gameInstance = null;
+    private GameObject trappedBall = null;
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ball") {
+            if (collision.gameObject.GetComponent<Ball>().isBallTrapped) {
+                return;
+            }
             PlayHitEffect();
             if (gameObject.tag == breakableBlockTag) {
                 PlayDamageEffect();
@@ -25,9 +30,10 @@ public class Block : MonoBehaviour
                 if (health <= 0) {
                     DestroyBlock();
                 } else {
-                    int hit = Mathf.RoundToInt(health / (startingHealth / (1f + hitSprites.Length)));
+                    int hit = Mathf.FloorToInt((health / startingHealth) * hitSprites.Length);
+                    //Debug.Log("Health: " + health.ToString() + "   Starting Health: " + startingHealth.ToString() + "   Hit: " + hit.ToString());
                     if (hit < hitSprites.Length) {
-                        gameObject.GetComponent<SpriteRenderer>().sprite = hitSprites[hitSprites.Length - hit - 1];
+                        gameObject.GetComponent<SpriteRenderer>().sprite = hitSprites[hit];
                     }
                 }
             }
@@ -49,15 +55,28 @@ public class Block : MonoBehaviour
         if (gameObject.tag == breakableBlockTag) {
             LevelInstance.GetInstance().AddBlock();
         }
+
+        if (transform.childCount > 0 && transform.GetChild(0).gameObject.tag == "Ball") {
+            trappedBall = transform.GetChild(0).gameObject;
+        }
     }
 
     void DestroyBlock() {
+        GameObject newBall;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.1f);
         GetComponent<BoxCollider2D>().isTrigger = true;
         LevelInstance.GetInstance().AddScore(pointValue);
+        if (trappedBall) {
+            newBall = Instantiate(ballPrefab);
+            newBall.GetComponent<Ball>().isBallInPlay = true;
+            newBall.transform.position = trappedBall.transform.position;
+            Destroy(trappedBall);
+            trappedBall = null;
+        }
     }
+
 
     void PlayDamageEffect() {
         GameObject smoke = Object.Instantiate(hitEffect, transform.position, transform.rotation);

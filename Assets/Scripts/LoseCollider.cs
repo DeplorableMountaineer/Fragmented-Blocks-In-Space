@@ -7,11 +7,19 @@ public class LoseCollider : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Ball") {
+            collision.gameObject.tag = "Dead";
             GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-
-            if (balls.Length < 1 || (balls.Length == 1 && balls[0] == collision.gameObject)) {
-                GameInstance.GetInstance().GameOver();
+            foreach (GameObject ball in balls) {
+                if (ball == collision.gameObject) {
+                    continue;
+                }
+                if (ball.GetComponent<Ball>().isBallTrapped) {
+                    continue;
+                }
+                Debug.Log("Ball remaining: " + ball.ToString());
+                return;
             }
+            GameInstance.GetInstance().GameOver();
         }
         Destroy(collision.gameObject);
     }

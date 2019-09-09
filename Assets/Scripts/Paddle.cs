@@ -10,6 +10,8 @@ public class Paddle : MonoBehaviour
     private ControlType controlType;
     public float accuracy;
     private Ball ball;
+    private Ball ball2 = null;
+    private bool isPossibleMultiball = false;
 
     void Start() {
         ball = FindObjectOfType<Ball>();
@@ -17,6 +19,10 @@ public class Paddle : MonoBehaviour
         if (controlType == ControlType.Autoplay) {
             accuracy = Random.Range(Accuracy_Min, Accuracy_Max);
             Invoke("AutoLaunch", 1f);
+        }
+
+        if (FindObjectsOfType<Ball>().Length > 1) {
+            isPossibleMultiball = true;
         }
     }
 
@@ -46,11 +52,54 @@ public class Paddle : MonoBehaviour
     }
 
     void AutoPlay(float accuracy) {
-        if (ball.transform.position.y < 5) {
+        if (Time.timeSinceLevelLoad >= 300 && Mathf.RoundToInt(Time.timeSinceLevelLoad % 300) == 0) {
+            transform.position = new Vector2((X_Min + X_Max) * .5f, transform.position.y);
+            Debug.Log("Timeout: paddle moved to center.");
+            return;
+        }
+        if (ball2 && ball.tag != "Ball") {
+            ball = ball2;
+            ball2 = null;
+            if (FindObjectsOfType<Ball>().Length <= 1) {
+                isPossibleMultiball = false;
+            }
+        } else if (ball2 && ball2.tag != "Ball") {
+            ball2 = null;
+            if (FindObjectsOfType<Ball>().Length <= 1) {
+                isPossibleMultiball = false;
+            }
+        }
+
+        if (ball2 && Mathf.Abs(ball2.transform.position.x - transform.position.x) <
+            Mathf.Abs(ball.transform.position.x - transform.position.x) && ball2.GetComponent<Rigidbody2D>().velocity.y < 0) {
+            if (ball2.transform.position.y < 6) {
+                float x = Mathf.Clamp(ball2.transform.position.x, X_Min, X_Max);
+                x = transform.position.x * (1 - accuracy) + x * accuracy;
+                Vector2 pos = new Vector2(x, transform.position.y);
+                transform.position = pos;
+            }
+        } else if (ball.transform.position.y < 6 && ball.GetComponent<Rigidbody2D>().velocity.y < 0) {
             float x = Mathf.Clamp(ball.transform.position.x, X_Min, X_Max);
             x = transform.position.x * (1 - accuracy) + x * accuracy;
             Vector2 pos = new Vector2(x, transform.position.y);
             transform.position = pos;
+        } else if (ball2) {
+            if (ball2.transform.position.y < 6) {
+                float x = Mathf.Clamp(ball2.transform.position.x, X_Min, X_Max);
+                x = transform.position.x * (1 - accuracy) + x * accuracy;
+                Vector2 pos = new Vector2(x, transform.position.y);
+                transform.position = pos;
+            }
+            if (FindObjectsOfType<Ball>().Length <= 1) {
+                isPossibleMultiball = false;
+            }
+        } else if (isPossibleMultiball) {
+            foreach (Ball x in FindObjectsOfType<Ball>()) {
+                if (x != ball && x.isBallInPlay && !x.isBallTrapped && x.tag == "Ball") {
+                    ball2 = x;
+                    break;
+                }
+            }
         }
     }
 
