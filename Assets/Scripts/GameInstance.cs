@@ -14,6 +14,8 @@ public class GameInstance : MonoBehaviour
 
     private static GameInstance singleton = null;
 
+    public int lastLevelPlayed = 0;
+
     public static GameInstance GetInstance(GameObject prefab = null) {
         if (singleton == null) {
             if (FindObjectsOfType<GameInstance>().Length < 1) {
@@ -38,6 +40,10 @@ public class GameInstance : MonoBehaviour
         } else {
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    ControlType getControlType() {
+        return controlType;
     }
 
     // Start is called before the first frame update
@@ -93,8 +99,11 @@ public class GameInstance : MonoBehaviour
     }
 
     public void GameOver() {
-        LevelInstance.GetInstance().SaveStats(false);
+        if (controlType == ControlType.Autoplay) {
+            LevelInstance.GetInstance().SaveStats(false);
+        }
         gameOver = true;
+        lastLevelPlayed = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
     }
 

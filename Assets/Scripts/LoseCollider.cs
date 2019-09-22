@@ -16,7 +16,6 @@ public class LoseCollider : MonoBehaviour
                 if (ball.GetComponent<Ball>().isBallTrapped) {
                     continue;
                 }
-                Debug.Log("Ball remaining: " + ball.ToString());
                 return;
             }
             GameInstance.GetInstance().GameOver();

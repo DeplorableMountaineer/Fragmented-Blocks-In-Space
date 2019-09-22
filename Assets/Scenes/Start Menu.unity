@@ -349,7 +349,7 @@ PrefabInstance:
     - target: {fileID: 22161238774912024, guid: edd143cc55425624b96354b1adb91a5e,
         type: 3}
       propertyPath: gameSpeed
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edd143cc55425624b96354b1adb91a5e, type: 3}
@@ -491,6 +491,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297003441960758588, guid: a451295b7df63514ab6c8ad33563c76f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -5.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a451295b7df63514ab6c8ad33563c76f, type: 3}

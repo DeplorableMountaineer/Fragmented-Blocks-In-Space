@@ -10,6 +10,7 @@ TagManager:
   - Unbreakable Block
   - Level
   - Dead
+  - Waypoint
   layers:
   - Default
   - TransparentFX

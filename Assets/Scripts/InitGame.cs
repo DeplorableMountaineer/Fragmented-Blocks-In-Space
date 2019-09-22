@@ -52,7 +52,13 @@ public class InitGame : MonoBehaviour
     }
 
     void StartRandomLevel() {
-        SceneManager.LoadScene(Random.Range(1, SceneManager.sceneCountInBuildSettings - 1));
+        int next_level = GameInstance.GetInstance().lastLevelPlayed + 1;
+        if (next_level >= SceneManager.sceneCountInBuildSettings - 1) {
+            next_level = 1;
+        }
+
+        SceneManager.LoadScene(next_level);
+        //SceneManager.LoadScene(Random.Range(1, SceneManager.sceneCountInBuildSettings - 1));
     }
 
     void RestartGame() {

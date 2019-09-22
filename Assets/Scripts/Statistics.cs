@@ -52,6 +52,8 @@ public class Statistics : MonoBehaviour
         if (!File.Exists(statsfile)) {
             File.Create(statsfile).Close();
             AppendRow(statsFields);
+        } else {
+            numStatsAdded = File.ReadAllLines(statsfile).Length - 1;
         }
     }
 
@@ -71,7 +73,7 @@ public class Statistics : MonoBehaviour
                 result += ",";
             }
             result += "\"" + field + "\"";
-            if (i != 3 && i!=0) {
+            if (i != 3 && i != 0) {
                 formatted_result += "<color=blue>" + statsFields[i] + "</color>: " + field + ";   ";
             }
 
