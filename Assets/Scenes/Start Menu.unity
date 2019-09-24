@@ -344,12 +344,12 @@ PrefabInstance:
     - target: {fileID: 22161238774912024, guid: edd143cc55425624b96354b1adb91a5e,
         type: 3}
       propertyPath: controlType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22161238774912024, guid: edd143cc55425624b96354b1adb91a5e,
         type: 3}
       propertyPath: gameSpeed
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edd143cc55425624b96354b1adb91a5e, type: 3}

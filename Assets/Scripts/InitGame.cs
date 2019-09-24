@@ -19,6 +19,9 @@ public class InitGame : MonoBehaviour
     void Awake() {
         if (levelType == LevelType.StartScreen) {
             GameInstance.GetInstance().SetControlType(controlType);
+            if (controlType == ControlType.Mouse){
+                Cursor.lockState = CursorLockMode.Confined;
+            }
         } else {
             controlType = GameInstance.GetInstance().GetControlType();
         }

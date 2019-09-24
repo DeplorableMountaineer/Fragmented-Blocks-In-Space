@@ -7,8 +7,8 @@ public class Paddle : MonoBehaviour
 {
     [SerializeField] private float X_Min = 1.3f;
     [SerializeField] private float X_Max = 14.7f;
-    private float Accuracy_Min = 0.796f;
-    private float Accuracy_Max = 0.886f;
+    private float Accuracy_Min = 0.846f;
+    private float Accuracy_Max = 0.851f;
 
     private ControlType controlType;
     public float accuracy;
